@@ -34,6 +34,14 @@
             android:name="com.timkonieczny.yuomeclickdummy.SplashscreenActivity"
             android:label="@string/title_activity_splashscreen" >
         </activity>
+        <activity
+            android:name="com.timkonieczny.yuomeclickdummy.ScanReceiptActivity"
+            android:label="@string/title_activity_scan_receipt"
+            android:parentActivityName="com.timkonieczny.yuome.SplashscreenActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.timkonieczny.yuome.SplashscreenActivity" />
+        </activity>
     </application>
 
 </manifest>

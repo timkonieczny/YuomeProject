@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">"
+	<TextView 
+	    android:id="@+id/debug"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="fragment_overview" />
+	<TextView
+	    android:id="@+id/my_debt"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textColor="#CC3232"
+	    android:text="Meine Schulden: -15,69€"
+	    android:layout_below="@id/debug"/>
+	<TextView
+	    android:id="@+id/others_debt"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textColor="#4A7023"
+	    android:text="Andere Schulden bei mir; +12,00€"
+	    android:layout_below="@id/my_debt"/>
+	<TextView 
+	    android:id="@+id/balance"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textColor="#CC3232"
+	    android:text="Schuldensaldo: +3,69€"
+	    android:layout_below="@id/others_debt"/>
+</LinearLayout>
+

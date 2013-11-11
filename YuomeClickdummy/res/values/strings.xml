@@ -6,16 +6,20 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_sign_up">Registrieren</string>
     <string name="title_activity_splashscreen">Yuome</string>
+
     <string-array name="main_menu">
-        <item>Foto aufnehmen</item>
+        <item>Kassenzettel scannen</item>
+        <item>Meine Übersicht</item>
         <item>Meine Kassenzettel</item>
-        <item>Freundeskreis beitreten</item>
-        <item>Freundeskreis erstellen</item>
+        <item>Freundeskreise bearbeiten</item>
+        <item>Mein Konto</item>
         <item>Mein Konto</item>
     </string-array>
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
+    <string name="title_activity_scan_receipt">ScanReceiptActivity</string>
 
 </resources>

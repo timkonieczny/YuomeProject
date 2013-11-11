@@ -77,7 +77,7 @@ public class SplashscreenActivity extends Activity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if (savedInstanceState == null) {		//erstenScreen auswählen #######################################
-            selectItem(0);
+            selectItem(1);
         }
     }
 
@@ -131,17 +131,13 @@ public class SplashscreenActivity extends Activity {
     }
 
     private void selectItem(int position) {								//Auswahl der Fragments passend zum ListItem ###################
-        if(position==0){
-        	Intent intent = new Intent();
-        	
+        if(position==0){													//Kamera wird geöffnet (neue Activity)
+        	Intent intent = new Intent(this, ScanReceiptActivity.class);
+        	startActivity(intent);
         }
-    	if(position==1){
+        if(position==1){													//Schuldenübersicht
 	    	// update the main content by replacing fragments
-	        Fragment fragment = new PlanetFragment();
-	       // Fragment fragment2 = new 
-	        Bundle args = new Bundle();
-	        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-	        fragment.setArguments(args);
+	        Fragment fragment = new OverviewFragment();
 	
 	        FragmentManager fragmentManager = getFragmentManager();
 	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
@@ -151,14 +147,31 @@ public class SplashscreenActivity extends Activity {
 	        setTitle(mMainMenuItems[position]);
 	        mDrawerLayout.closeDrawer(mDrawerList);
         }
-        if (position==2){
-        	// update the main content by replacing fragments
-	        Fragment fragment = new PlanetFragment2();
-	       // Fragment fragment2 = new 
-	        Bundle args = new Bundle();
-	        args.putInt(PlanetFragment2.ARG_PLANET_NUMBER, position);
-	        fragment.setArguments(args);
+    	if(position==2){													//Meine Kassenzettel
+	    	// update the main content by replacing fragments
+	        Fragment fragment = new MyReceiptsFragment();
 	
+	        FragmentManager fragmentManager = getFragmentManager();
+	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+	
+	        // update selected item and title, then close the drawer
+	        mDrawerList.setItemChecked(position, true);
+	        setTitle(mMainMenuItems[position]);
+	        mDrawerLayout.closeDrawer(mDrawerList);
+        }
+        if (position==3){													//WGs bearbeiten
+        	// update the main content by replacing fragments
+	        Fragment fragment = new EditCommunitiesFragment();
+	        FragmentManager fragmentManager = getFragmentManager();
+	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+	
+	        // update selected item and title, then close the drawer
+	        mDrawerList.setItemChecked(position, true);
+	        setTitle(mMainMenuItems[position]);
+	        mDrawerLayout.closeDrawer(mDrawerList);
+        }
+        if (position==4){													//Kontoeinstellungen
+        	Fragment fragment = new MyAccountFragment();
 	        FragmentManager fragmentManager = getFragmentManager();
 	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 	
@@ -197,46 +210,58 @@ public class SplashscreenActivity extends Activity {
     /**
      * Fragment that appears in the "content_frame", shows a planet
      */
-    public static class PlanetFragment extends Fragment {					//jeweils eine Klasse für jedes Fragment erstellen #########################
-        public static final String ARG_PLANET_NUMBER = "planet_number";
+    public static class MyReceiptsFragment extends Fragment {					//jeweils eine Klasse für jedes Fragment erstellen #########################
 
-        public PlanetFragment() {
+        public MyReceiptsFragment() {
             // Empty constructor required for fragment subclasses
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_planet, container, false);
-            int i = getArguments().getInt(ARG_PLANET_NUMBER);
-            String planet = getResources().getStringArray(R.array.main_menu)[i];
-
-            int imageId = getResources().getIdentifier(planet.toLowerCase(Locale.getDefault()),
-                            "drawable", getActivity().getPackageName());
-            //((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);		//Bild wird geändert ########################
-            getActivity().setTitle(planet);
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_my_receipts, container, false);
+            getActivity().setTitle("Meine Kassenzettel");
             return rootView;
         }
     }
     
-    public static class PlanetFragment2 extends Fragment {
-        public static final String ARG_PLANET_NUMBER = "planet_number";
+    public static class OverviewFragment extends Fragment {					//jeweils eine Klasse für jedes Fragment erstellen #########################
 
-        public PlanetFragment2() {
+        public OverviewFragment() {
             // Empty constructor required for fragment subclasses
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_planet2, container, false);
-            int i = getArguments().getInt(ARG_PLANET_NUMBER);
-            String planet = getResources().getStringArray(R.array.main_menu)[i];
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
+            getActivity().setTitle("Meine Kassenzettel");
+            return rootView;
+        }
+    }
+    
+    public static class EditCommunitiesFragment extends Fragment {
 
-            int imageId = getResources().getIdentifier(planet.toLowerCase(Locale.getDefault()),
-                            "drawable", getActivity().getPackageName());
-            //((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);
-            getActivity().setTitle(planet);
+        public EditCommunitiesFragment() {
+            // Empty constructor required for fragment subclasses
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_edit_communities, container, false);
+            getActivity().setTitle("Freundeskreis bearbeiten");
+            return rootView;
+        }
+    }
+    
+    public static class MyAccountFragment extends Fragment {
+
+        public MyAccountFragment() {
+            // Empty constructor required for fragment subclasses
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_my_account, container, false);
+            getActivity().setTitle("Mein Konto");
             return rootView;
         }
     }
