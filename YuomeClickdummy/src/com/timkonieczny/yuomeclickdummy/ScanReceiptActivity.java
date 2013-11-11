@@ -1,4 +1,4 @@
-package com.timkonieczny.yuome;
+package com.timkonieczny.yuomeclickdummy;
 
 import android.content.Intent;
 
@@ -35,7 +35,7 @@ public class ScanReceiptActivity extends Activity {
         // Show the Up button in the action bar.
         setupActionBar();
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, getImageUri());
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, getImageUri());
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
 
@@ -43,7 +43,7 @@ public class ScanReceiptActivity extends Activity {
      * Get the uri of the captured file
      * @return A Uri which path is the path of an image file, stored on the dcim folder
      */
-    /*private Uri getImageUri() {
+    private Uri getImageUri() {
         // Store image in dcim
         // Here you can change your internal storage path to store those images..
         String CAPTURE_TITLE="3.png";
@@ -51,7 +51,7 @@ public class ScanReceiptActivity extends Activity {
         Uri imgUri = Uri.fromFile(file);
 
         return imgUri;
-    }*/
+    }
 
     /**
      * Set up the {@link android.app.ActionBar}, if the API is available.
@@ -74,7 +74,7 @@ public class ScanReceiptActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST) {
             ImageView receiptImage = (ImageView) findViewById(R.id.result_image);
-            //receiptImage.setImageBitmap(BitmapFactory.decodeFile("/Kassenzettel/3.png"));
+            receiptImage.setImageBitmap(BitmapFactory.decodeFile("/Kassenzettel/3.png"));
             //Bitmap photo = (Bitmap) data.getExtras().get("data");
             //receiptImage.setImageBitmap(photo);
 
