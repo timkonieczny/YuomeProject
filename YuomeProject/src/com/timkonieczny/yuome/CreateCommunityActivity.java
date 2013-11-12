@@ -2,7 +2,6 @@ package com.timkonieczny.yuome;
 
 
 import com.timkonieczny.yuome.R;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -26,10 +25,6 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,21 +60,42 @@ public class CreateCommunityActivity extends Activity {
     }
 
     void create(){
-   
-        Connection myCon;
-        Statement myStmt;
         try{
-          Class.forName("com.mysql.jdbc.Driver").newInstance();
-          myCon = DriverManager.getConnection("jdbc:mysql://127.0.0.1/deptdata?user=root");
-          myStmt = myCon.createStatement();
-          int result = myStmt.executeUpdate(
-             "INSERT INTO community (name, password) VALUES ('" + et.getText().toString().trim() + "', '" + et.getText().toString().trim() + "')");
-          myCon.close();
-          Toast.makeText(CreateCommunityActivity.this, "Erstellen erfolgreich", Toast.LENGTH_SHORT).show();
-          showAlert();
-        }
-        catch (Exception sqlEx){
-          System.err.println(sqlEx);
+            httpclient=new DefaultHttpClient();
+            httppost= new HttpPost("http://timbotombo.heliohost.org/add_community.php"); // make sure the url is correct.
+            //add your data
+            nameValuePairs = new ArrayList<NameValuePair>(2);
+            // Always use the same variable name for posting i.e the android side variable name and php side variable name should be similar,
+            nameValuePairs.add(new BasicNameValuePair("community_name",et.getText().toString().trim()));  // $Edittext_value = $_POST['Edittext_value'];
+            nameValuePairs.add(new BasicNameValuePair("password",pw.getText().toString().trim()));
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            //Execute HTTP Post Request
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            final String response = httpclient.execute(httppost, responseHandler);
+            System.out.println("Response : " + response);
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    tv.setText("Response from PHP : " + response);
+                    dialog.dismiss();
+                }
+            });
+
+            if(response.equalsIgnoreCase("Success")){
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(CreateCommunityActivity.this, "Erstellen erfolgreich", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                Intent intent = new Intent(CreateCommunityActivity.this, SplashscreenActivity.class);
+                startActivity(intent);
+            }else{
+                Toast.makeText(CreateCommunityActivity.this, "Erstellen nicht erfolgreich", Toast.LENGTH_SHORT).show();
+                showAlert();
+            }
+
+        }catch(Exception e){
+            dialog.dismiss();
+            System.out.println("Exception : " + e.getMessage());
         }
     }
     public void showAlert(){
