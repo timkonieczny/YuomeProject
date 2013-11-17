@@ -62,7 +62,7 @@ public class CreateCommunityActivity extends Activity {
     void create(){
         try{
             httpclient=new DefaultHttpClient();
-            httppost= new HttpPost("http://timbotombo.heliohost.org/add_community.php"); // make sure the url is correct.
+            httppost= new HttpPost("http://andibar.dyndns.org:5678/add_community.php"); // make sure the url is correct.
             //add your data
             nameValuePairs = new ArrayList<NameValuePair>(2);
             // Always use the same variable name for posting i.e the android side variable name and php side variable name should be similar,
@@ -75,7 +75,6 @@ public class CreateCommunityActivity extends Activity {
             System.out.println("Response : " + response);
             runOnUiThread(new Runnable() {
                 public void run() {
-                    tv.setText("Response from PHP : " + response);
                     dialog.dismiss();
                 }
             });
