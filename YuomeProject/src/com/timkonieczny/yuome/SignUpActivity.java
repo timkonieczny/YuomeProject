@@ -60,9 +60,9 @@ public class SignUpActivity extends Activity {
     }
 
     void login(){
-        try{
+        try{ 
         	httpclient=new DefaultHttpClient();
-            httppost= new HttpPost("http://www.timbotombo.heliohost.org/add_user.php");
+            httppost= new HttpPost("http://andibar.dyndns.org:5678/add_user.php");
            
             new_user = new ArrayList<NameValuePair>(2);
            
@@ -102,7 +102,6 @@ public class SignUpActivity extends Activity {
             public void run() {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
                 builder.setTitle("Signup Error.");
-                System.out.println(response.toString());
                 builder.setMessage(response.toString())
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
