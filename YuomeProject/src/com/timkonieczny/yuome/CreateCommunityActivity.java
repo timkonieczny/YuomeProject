@@ -26,7 +26,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
 import java.util.List;
-//testtest
+
 public class CreateCommunityActivity extends Activity {
 
     Button b;
