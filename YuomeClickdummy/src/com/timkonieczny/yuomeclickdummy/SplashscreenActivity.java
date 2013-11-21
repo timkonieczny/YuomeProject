@@ -79,6 +79,7 @@ public class SplashscreenActivity extends Activity {
         if (savedInstanceState == null) {		//erstenScreen auswählen #######################################
             selectItem(1);
         }
+        mDrawerLayout.openDrawer(mDrawerList);	//Beim Erstellen der Activity wird der Drawer geöffnet
     }
 
     @Override

@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+//import com.timkonieczny.yuomeclickdummy.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,13 +34,17 @@ public class ReceiptPostprocessingActivity extends ListActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_receipt_postprocessing);
 
         // Set up ListView example
-        String[] items = new String[20];
-        for (int i = 0; i < items.length; i++) {
-            items[i] = "Item " + (i + 1);
-        }
+        String[] items = new String[]{
+        		"Kaese",
+        		"Schinken",
+        		"Brot",
+        		"Eier",
+        		"Astra",
+        		"Pizza",
+        		"Milch"};
 
         mAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
@@ -72,39 +77,6 @@ public class ReceiptPostprocessingActivity extends ListActivity {
         // Setting this scroll listener is required to ensure that during ListView scrolling,
         // we don't look for swipes.
         listView.setOnScrollListener(touchListener.makeScrollListener());
-
-        // Set up normal ViewGroup example
-        final ViewGroup dismissableContainer = (ViewGroup) findViewById(R.id.dismissable_container);
-        for (int i = 0; i < items.length; i++) {
-            final Button dismissableButton = new Button(this);
-            dismissableButton.setLayoutParams(new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            dismissableButton.setText("Button " + (i + 1));
-            dismissableButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(ReceiptPostprocessingActivity.this,
-                            "Clicked " + ((Button) view).getText(),
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
-            // Create a generic swipe-to-dismiss touch listener.
-            dismissableButton.setOnTouchListener(new SwipeDismissTouchListener(
-                    dismissableButton,
-                    null,
-                    new SwipeDismissTouchListener.DismissCallbacks() {
-                        @Override
-                        public boolean canDismiss(Object token) {
-                            return true;
-                        }
-
-                        @Override
-                        public void onDismiss(View view, Object token) {
-                            dismissableContainer.removeView(dismissableButton);
-                        }
-                    }));
-            dismissableContainer.addView(dismissableButton);
-        }
     }
 
     @Override

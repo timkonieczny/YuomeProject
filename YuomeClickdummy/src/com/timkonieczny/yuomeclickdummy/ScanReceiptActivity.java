@@ -35,7 +35,6 @@ public class ScanReceiptActivity extends Activity {
         // Show the Up button in the action bar.
         setupActionBar();
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, getImageUri());
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
 

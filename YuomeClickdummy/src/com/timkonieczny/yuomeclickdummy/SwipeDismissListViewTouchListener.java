@@ -351,7 +351,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                     // Sort by descending position
                     Collections.sort(mPendingDismisses);
 
-                    int[] dismissPositions = new int[mPendingDismisses.size()];
+                    int[] dismissPositions = new int[mPendingDismisses.size()];		//löscht Item nach rausswipen
                     for (int i = mPendingDismisses.size() - 1; i >= 0; i--) {
                         dismissPositions[i] = mPendingDismisses.get(i).position;
                     }
