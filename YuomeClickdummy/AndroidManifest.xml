@@ -42,6 +42,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.timkonieczny.yuome.SplashscreenActivity" />
         </activity>
+        <activity
+            android:name="com.timkonieczny.yuomeclickdummy.ReceiptPostprocessingActivity"
+            android:label="@string/title_activity_receipt_postprocessing" >
+        </activity>
     </application>
 
 </manifest>

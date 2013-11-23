@@ -1,6 +1,5 @@
 package com.timkonieczny.yuome;
 
-
 import com.timkonieczny.yuome.R;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
