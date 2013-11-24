@@ -38,13 +38,13 @@ public class ReceiptPostprocessingActivity extends ListActivity {
 
         // Set up ListView example
         String[] items = new String[]{
-        		"Kaese",
-        		"Schinken",
-        		"Brot",
-        		"Eier",
-        		"Astra",
-        		"Pizza",
-        		"Milch"};
+        		"Kaese \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1,95",
+        		"Schinken\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t2,49",
+        		"Brot\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1,49",
+        		"Eier\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1,45",
+        		"Astra\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t4,99",
+        		"Pizza\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1,99",
+        		"Milch\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t0,59"};
 
         mAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
