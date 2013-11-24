@@ -22,5 +22,7 @@
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
     <string name="title_activity_scan_receipt">ScanReceiptActivity</string>
     <string name="title_activity_receipt_postprocessing">Die Artikel</string>
+    <string name="title_activity_overview">Gruppen</string>
+    <string name="row_overview">Row Design</string>
 
 </resources>

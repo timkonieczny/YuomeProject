@@ -147,6 +147,11 @@ public class SplashscreenActivity extends Activity {
 	        mDrawerList.setItemChecked(position, true);
 	        setTitle(mMainMenuItems[position]);
 	        mDrawerLayout.closeDrawer(mDrawerList);
+	        
+	        Intent intent = new Intent(this, GroupOverviewActivity.class);
+        	startActivity(intent);
+	        
+	        
         }
     	if(position==2){													//Meine Kassenzettel
 	    	// update the main content by replacing fragments
@@ -233,7 +238,7 @@ public class SplashscreenActivity extends Activity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
+            View rootView = inflater.inflate(R.layout.activity_overview, container, false);
             getActivity().setTitle("Meine Kassenzettel");
             return rootView;
         }
