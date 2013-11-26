@@ -1,5 +1,7 @@
 package com.timkonieczny.yuomeclickdummy;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 import com.timkonieczny.yuomeclickdummy.R;
@@ -7,6 +9,7 @@ import com.timkonieczny.yuomeclickdummy.R;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -24,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 public class SplashscreenActivity extends Activity {
@@ -142,24 +146,21 @@ public class SplashscreenActivity extends Activity {
 	
 	        FragmentManager fragmentManager = getFragmentManager();
 	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-	
+	                		    
 	        // update selected item and title, then close the drawer
 	        mDrawerList.setItemChecked(position, true);
 	        setTitle(mMainMenuItems[position]);
 	        mDrawerLayout.closeDrawer(mDrawerList);
-	        
-	        Intent intent = new Intent(this, GroupOverviewActivity.class);
-        	startActivity(intent);
-	        
-	        
+	     
         }
     	if(position==2){													//Meine Kassenzettel
 	    	// update the main content by replacing fragments
 	        Fragment fragment = new MyReceiptsFragment();
-	
+	        
 	        FragmentManager fragmentManager = getFragmentManager();
-	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-	
+		    fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+		    
+		       
 	        // update selected item and title, then close the drawer
 	        mDrawerList.setItemChecked(position, true);
 	        setTitle(mMainMenuItems[position]);
@@ -231,7 +232,7 @@ public class SplashscreenActivity extends Activity {
     }
     
     public static class OverviewFragment extends Fragment {					//jeweils eine Klasse für jedes Fragment erstellen #########################
-
+    
         public OverviewFragment() {
             // Empty constructor required for fragment subclasses
         }
@@ -239,7 +240,43 @@ public class SplashscreenActivity extends Activity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.activity_overview, container, false);
-            getActivity().setTitle("Meine Kassenzettel");
+            SimpleAdapter mAdapter;
+        	ArrayList<HashMap<String,String>> depts_list = new ArrayList<HashMap<String,String>>();
+            getActivity().setTitle("Meine Übersicht");
+            
+        	        // Set up ListView example
+        	        String[] groups = new String[]{
+        	        		"Wohngemeinschaft",
+        	        		"Studentenverbindung",
+        	        		"Freunde",
+        	        		"Familie",
+        	        		"Schulklasse"};
+        	        
+        	        Double[] balance = new Double[]{
+        	        		4.0,
+        	        		-4.5,
+        	        		5.6,
+        	        		-5.6,
+        	        		4.4,};
+        	        
+        	        
+        	        for(int index = 0; index < groups.length; index++){
+        	        	HashMap<String, String> depts = new HashMap<String, String>();
+        	        	depts.put("group", groups[index]);
+        	        	depts.put("balance", balance[index].toString());
+        	        	depts_list.add(depts);
+        	        }
+        	        
+        	        mAdapter = new SimpleAdapter(getActivity(),
+        	        		depts_list,
+        	        		 R.layout.row_overview,
+                             new String[] {"group", "balance"},
+                             new int[] {R.id.text1,
+                                     R.id.text2});
+        	        
+            
+            ListView myList = (ListView) rootView.findViewById(android.R.id.list);
+	        myList.setAdapter(mAdapter);
             return rootView;
         }
     }
@@ -268,6 +305,7 @@ public class SplashscreenActivity extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_my_account, container, false);
             getActivity().setTitle("Mein Konto");
+            
             return rootView;
         }
     }
