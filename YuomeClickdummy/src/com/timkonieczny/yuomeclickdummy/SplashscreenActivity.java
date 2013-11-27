@@ -149,6 +149,8 @@ public class SplashscreenActivity extends Activity {
 	
 	        FragmentManager fragmentManager = getFragmentManager();
 	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+	        
+	        
 	                		    
 	        // update selected item and title, then close the drawer
 	        mDrawerList.setItemChecked(position, true);
@@ -245,7 +247,7 @@ public class SplashscreenActivity extends Activity {
             View rootView = inflater.inflate(R.layout.activity_overview, container, false);
             SimpleAdapter mAdapter;
         	ArrayList<HashMap<String,String>> depts_list = new ArrayList<HashMap<String,String>>();
-            getActivity().setTitle("Meine Übersicht");
+            getActivity().setTitle("Gruppenübersicht");
             
         	        // Set up ListView example
         	        String[] groups = new String[]{
@@ -277,9 +279,10 @@ public class SplashscreenActivity extends Activity {
                              new int[] {R.id.text1,
                                      R.id.text2});
         	        
-            
+        	OverviewActivity overview = new OverviewActivity(rootView, mAdapter);
             ListView myList = (ListView) rootView.findViewById(android.R.id.list);
 	        myList.setAdapter(mAdapter);
+	        
             return rootView;
         }
     }

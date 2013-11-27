@@ -47,7 +47,7 @@
             android:label="@string/title_activity_receipt_postprocessing" >
         </activity>
          <activity
-            android:name="com.timkonieczny.yuomeclickdummy.GroupOverviewActivity"
+            android:name="com.timkonieczny.yuomeclickdummy.OverviewActivity"
             android:label="@string/title_activity_overview" >
         </activity>
     </application>
