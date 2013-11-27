@@ -25,5 +25,6 @@
     <string name="title_activity_overview">Gruppen</string>
     <string name="row_overview">Row Design</string>
     <item name="groups" type="id"/>
+    <color name="green">#64FE2E</color>
 
 </resources>
