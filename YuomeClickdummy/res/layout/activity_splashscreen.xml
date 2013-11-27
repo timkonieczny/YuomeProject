@@ -9,6 +9,7 @@
          space available using match_parent in both dimensions. -->
     <FrameLayout
         android:id="@+id/content_frame"
+        android:background="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -24,7 +25,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:background="#FFFFFF"/>	<!-- Hintergrundfarbe des NavigationDrawers -->
+        android:divider="#338A30"
+        android:dividerHeight="1dp"
+        android:background="#2D2E2D"/>	<!-- Hintergrundfarbe des NavigationDrawers -->
 </android.support.v4.widget.DrawerLayout>

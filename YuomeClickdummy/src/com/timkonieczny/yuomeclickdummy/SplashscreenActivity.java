@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -52,7 +53,7 @@ public class SplashscreenActivity extends Activity {
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mMainMenuItems = getResources().getStringArray(R.array.main_menu);
         // set a custom shadow that overlays the main content when the drawer opens
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        //mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mMainMenuItems));
@@ -247,15 +248,14 @@ public class SplashscreenActivity extends Activity {
             View rootView = inflater.inflate(R.layout.activity_overview, container, false);
             SimpleAdapter mAdapter;
         	ArrayList<HashMap<String,String>> depts_list = new ArrayList<HashMap<String,String>>();
-            getActivity().setTitle("Gruppenübersicht");
+            getActivity().setTitle("Meine Übersicht");
             
         	        // Set up ListView example
         	        String[] groups = new String[]{
-        	        		"Wohngemeinschaft",
-        	        		"Studentenverbindung",
-        	        		"Freunde",
-        	        		"Familie",
-        	        		"Schulklasse"};
+        	        		"Andi",
+        	        		"Nicki",
+        	        		"Tim",
+        	        		"Erik"};
         	        
         	        Double[] balance = new Double[]{
         	        		4.0,
@@ -283,8 +283,21 @@ public class SplashscreenActivity extends Activity {
             ListView myList = (ListView) rootView.findViewById(android.R.id.list);
 	        myList.setAdapter(mAdapter);
 	        
+	        myList.setOnItemClickListener(new OnItemClickListener() {
+	        	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+	            Toast.makeText(getActivity(),
+	                    "Clicked ",
+	                    Toast.LENGTH_SHORT).show();
+	        }
+
+	   
+	        });
+	     
+	        
             return rootView;
         }
+
+		
     }
     
     public static class EditCommunitiesFragment extends Fragment {

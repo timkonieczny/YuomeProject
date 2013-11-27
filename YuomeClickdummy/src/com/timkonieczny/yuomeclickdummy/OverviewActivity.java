@@ -3,6 +3,7 @@ package com.timkonieczny.yuomeclickdummy;
 
 import android.app.ListActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -44,11 +45,5 @@ public class OverviewActivity extends ListActivity {
     // the pressed state (the list selector), handling list item clicks, etc.
 	
 
-	@Override
-	protected void onListItemClick(ListView listView, View view, int position, long id) {
-	    Toast.makeText(this,
-	            "Clicked " + getListAdapter().getItem(position).toString(),
-	            Toast.LENGTH_SHORT).show();
-	}
 	
 }
