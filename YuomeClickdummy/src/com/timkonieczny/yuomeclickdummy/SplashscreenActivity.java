@@ -29,9 +29,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SplashscreenActivity extends Activity {
@@ -258,17 +260,23 @@ public class SplashscreenActivity extends Activity {
         	        		"Erik"};
         	        
         	        Double[] balance = new Double[]{
-        	        		4.0,
-        	        		-4.5,
-        	        		5.6,
-        	        		-5.6,
-        	        		4.4,};
+        	        		4.05,
+        	        		4.54,
+        	        		5.66,
+        	        		5.63,};
         	        
+        	        double balance_value = 0.0;
+        	        for(Double value : balance){
+        	        	balance_value = balance_value + value;
+        	        }
+        	        
+        	        TextView text = (TextView) rootView.findViewById(R.id.text4);
+        	        text.setText(String.valueOf(balance_value) + "€");
         	        
         	        for(int index = 0; index < groups.length; index++){
         	        	HashMap<String, String> depts = new HashMap<String, String>();
         	        	depts.put("group", groups[index]);
-        	        	depts.put("balance", balance[index].toString());
+        	        	depts.put("balance", balance[index].toString() + "€");
         	        	depts_list.add(depts);
         	        }
         	        
@@ -279,7 +287,6 @@ public class SplashscreenActivity extends Activity {
                              new int[] {R.id.text1,
                                      R.id.text2});
         	        
-        	OverviewActivity overview = new OverviewActivity(rootView, mAdapter);
             ListView myList = (ListView) rootView.findViewById(android.R.id.list);
 	        myList.setAdapter(mAdapter);
 	        
