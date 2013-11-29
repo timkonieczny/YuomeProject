@@ -7,11 +7,13 @@ import java.util.Locale;
 import com.timkonieczny.yuomeclickdummy.R;
 
 import android.app.ActionBar;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ListActivity;
 import android.app.SearchManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -20,18 +22,24 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -239,25 +247,29 @@ public class SplashscreenActivity extends Activity {
         }
     }
     
-    public static class OverviewFragment extends Fragment {					//jeweils eine Klasse für jedes Fragment erstellen #########################
-    
+    public static class OverviewFragment extends Fragment implements OnItemClickListener, OnClickListener {					//jeweils eine Klasse für jedes Fragment erstellen #########################
+    	
+    	private PopupWindow popupMessage;
+    	private View rootView;
+    	
         public OverviewFragment() {
             // Empty constructor required for fragment subclasses
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.activity_overview, container, false);
+            rootView = inflater.inflate(R.layout.activity_overview, container, false);
             SimpleAdapter mAdapter;
+            
         	ArrayList<HashMap<String,String>> depts_list = new ArrayList<HashMap<String,String>>();
             getActivity().setTitle("Meine Übersicht");
             
         	        // Set up ListView example
         	        String[] groups = new String[]{
-        	        		"Andi",
-        	        		"Nicki",
-        	        		"Tim",
-        	        		"Erik"};
+        	        		"Andreas Helms",
+        	        		"Erik Harbeck",
+        	        		"Nicolas Schwartau",
+        	        		"Tim Konieczny"};
         	        
         	        Double[] balance = new Double[]{
         	        		4.05,
@@ -271,12 +283,12 @@ public class SplashscreenActivity extends Activity {
         	        }
         	        
         	        TextView text = (TextView) rootView.findViewById(R.id.text4);
-        	        text.setText(String.valueOf(balance_value) + "€");
+        	        text.setText(String.valueOf(balance_value) + "€   ");
         	        
         	        for(int index = 0; index < groups.length; index++){
         	        	HashMap<String, String> depts = new HashMap<String, String>();
-        	        	depts.put("group", groups[index]);
-        	        	depts.put("balance", balance[index].toString() + "€");
+        	        	depts.put("group", "   " + groups[index]);
+        	        	depts.put("balance", balance[index].toString() + "€   ");
         	        	depts_list.add(depts);
         	        }
         	        
@@ -289,21 +301,48 @@ public class SplashscreenActivity extends Activity {
         	        
             ListView myList = (ListView) rootView.findViewById(android.R.id.list);
 	        myList.setAdapter(mAdapter);
+	        myList.setOnItemClickListener(this);
 	        
-	        myList.setOnItemClickListener(new OnItemClickListener() {
-	        	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-	            Toast.makeText(getActivity(),
-	                    "Clicked ",
-	                    Toast.LENGTH_SHORT).show();
-	        }
-
-	   
-	        });
-	     
+	        TextView popupText = new TextView(getActivity());
+	        Button insidePopupButton = new Button(getActivity());
+	        LinearLayout layoutOfPopup = new LinearLayout(getActivity());
+	        insidePopupButton.setText("OK");
+	        popupText.setText("This is Popup Window.press OK to dismiss it.");
+	        popupText.setPadding(0, 0, 0, 20);
+	        layoutOfPopup.setOrientation(1);
+	        layoutOfPopup.addView(popupText);
+	        layoutOfPopup.addView(insidePopupButton);
+	        layoutOfPopup.setBackgroundColor(getResources().getColor(R.color.white));
+	        layoutOfPopup.setDividerPadding(1);
+	        popupMessage = new PopupWindow(layoutOfPopup, LayoutParams.FILL_PARENT,
+	                LayoutParams.WRAP_CONTENT);
+	        View popupLayout = inflater.inflate(R.layout.popup_overview, container, false);
+	        
+	        popupMessage.setContentView(popupLayout);
+	        
+	        Button button = (Button) popupLayout.findViewById(R.id.popup_button);
+	        button.setOnClickListener(this);
 	        
             return rootView;
-        }
+        	}
 
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
+			// TODO Auto-generated method stub
+			popupMessage.showAtLocation(rootView, Gravity.CENTER, 0, 0);
+			
+		}
+
+			@Override
+			public void onClick(View v) {
+				RadioButton radio_button1 = (RadioButton) popupMessage.getContentView().findViewById(R.id.radioButton1);
+		        radio_button1.setChecked(false);
+		        RadioButton radio_button2 = (RadioButton) popupMessage.getContentView().findViewById(R.id.radioButton2);
+		        radio_button2.setChecked(false);
+				popupMessage.dismiss();
+				// TODO Auto-generated method stub
+				
+			}
 		
     }
     
