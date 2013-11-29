@@ -18,7 +18,7 @@
 		    android:layout_height="fill_parent"
 		    android:gravity="center_vertical|right"
 		    android:textColor="#009900"
-		    android:textSize="20sp"
+		    android:textSize="24sp"
 		    android:textStyle="bold" />
 
 </LinearLayout>

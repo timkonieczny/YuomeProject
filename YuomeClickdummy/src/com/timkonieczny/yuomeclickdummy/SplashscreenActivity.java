@@ -262,7 +262,7 @@ public class SplashscreenActivity extends Activity {
             SimpleAdapter mAdapter;
             
         	ArrayList<HashMap<String,String>> depts_list = new ArrayList<HashMap<String,String>>();
-            getActivity().setTitle("Meine Übersicht");
+            getActivity().setTitle("Übersicht");
             
         	        // Set up ListView example
         	        String[] groups = new String[]{
@@ -305,7 +305,7 @@ public class SplashscreenActivity extends Activity {
 	        
 	        LinearLayout layoutOfPopup = new LinearLayout(getActivity());
 	        
-	        popupMessage = new PopupWindow(layoutOfPopup, LayoutParams.FILL_PARENT,
+	        popupMessage = new PopupWindow(layoutOfPopup, LayoutParams.WRAP_CONTENT,
 	                LayoutParams.WRAP_CONTENT);
 	        View popupLayout = inflater.inflate(R.layout.popup_overview, container, false);
 	        

@@ -1,42 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center|center_vertical"
-    >
+    android:background="#338A30"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <View
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="10sp" />
+    
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/logo_large" />
+    
+    <View
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="10sp" />
 
     <EditText
-        android:text=""
         android:id="@+id/username"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:hint="Username"
         android:singleLine="true"
-        android:hint="Username">
+        android:text=""
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" >
+
     </EditText>
 
     <EditText
-        android:text=""
         android:id="@+id/password"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:hint="Passwort"
         android:inputType="textPassword"
-        android:hint="Passwort">
+        android:singleLine="true"
+        android:text=""
+        android:textColor="@color/white"
+        android:textColorHint="@color/white">
+
     </EditText>
+    
 
-    <Button
-        android:text="Login"
-        android:id="@+id/login_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:onClick="userLogIn"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150sp"
+        android:layout_gravity="center"
+        android:orientation="vertical" >
 
-    <Button
-        android:text="Registrieren"
-        android:id="@+id/signup_button"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:onClick="userSignUp"/>
+          <View
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="10sp" />
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_login"
+            android:onClick="userLogIn"
+            android:text="Login"
+            android:layout_gravity="center"
+            android:textColor="#FFFFFF" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="10sp" />
+
+        <Button
+            android:id="@+id/signup_button"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+           	android:background="@drawable/button_login"
+            android:onClick="userSignUp"
+            android:text="Registrieren"
+            android:layout_gravity="center"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
 
 </LinearLayout>

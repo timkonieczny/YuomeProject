@@ -6,32 +6,54 @@
     android:padding="10dip"
     android:orientation="vertical" >
 
-    <RadioButton
-        android:id="@+id/radioButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Schulden komplett begleichen" />
+    <LinearLayout
+        android:layout_width="270sp"
+        android:layout_height="65sp"
+        android:gravity="center_vertical|left"
+        android:orientation="horizontal" >
 
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Teilbetrag: " />
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|left"
+            android:text="Schulden komplett begleichen" />
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="164dp"
-        android:layout_height="wrap_content"
-        android:ems="10" >
+    </LinearLayout>
+		<View style="@style/Divider"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:gravity="center_vertical|left"
+        android:orientation="horizontal" >
 
-        <requestFocus />
-    </EditText>
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|left"
+            android:text="Teilbetrag begleichen: " />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.08"
+            android:ems="10"
+            android:gravity="center_vertical|right" >
+
+            <requestFocus />
+        </EditText>
+
+    </LinearLayout>
+    
+    <View style="@style/Divider"/>
 
     <Button
         android:id="@+id/popup_button"
         android:layout_width="166dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="fertig" />
+        android:gravity="center_vertical|left"
+        android:background="@drawable/button_custom" />
 	
 </LinearLayout>
