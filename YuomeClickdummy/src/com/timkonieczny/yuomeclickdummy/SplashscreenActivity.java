@@ -303,17 +303,8 @@ public class SplashscreenActivity extends Activity {
 	        myList.setAdapter(mAdapter);
 	        myList.setOnItemClickListener(this);
 	        
-	        TextView popupText = new TextView(getActivity());
-	        Button insidePopupButton = new Button(getActivity());
 	        LinearLayout layoutOfPopup = new LinearLayout(getActivity());
-	        insidePopupButton.setText("OK");
-	        popupText.setText("This is Popup Window.press OK to dismiss it.");
-	        popupText.setPadding(0, 0, 0, 20);
-	        layoutOfPopup.setOrientation(1);
-	        layoutOfPopup.addView(popupText);
-	        layoutOfPopup.addView(insidePopupButton);
-	        layoutOfPopup.setBackgroundColor(getResources().getColor(R.color.white));
-	        layoutOfPopup.setDividerPadding(1);
+	        
 	        popupMessage = new PopupWindow(layoutOfPopup, LayoutParams.FILL_PARENT,
 	                LayoutParams.WRAP_CONTENT);
 	        View popupLayout = inflater.inflate(R.layout.popup_overview, container, false);
@@ -328,8 +319,10 @@ public class SplashscreenActivity extends Activity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-			// TODO Auto-generated method stub
-			popupMessage.showAtLocation(rootView, Gravity.CENTER, 0, 0);
+			if(popupMessage.isShowing()){
+				popupMessage.dismiss();
+			}
+			popupMessage.showAsDropDown(arg1);
 			
 		}
 
