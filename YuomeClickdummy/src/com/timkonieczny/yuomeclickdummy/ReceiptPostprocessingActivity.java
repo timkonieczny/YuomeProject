@@ -23,34 +23,71 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 //import com.timkonieczny.yuomeclickdummy.R;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class ReceiptPostprocessingActivity extends ListActivity {
     ArrayAdapter<String> mAdapter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_receipt_postprocessing);
+        setContentView(R.layout.activity_overview);
+        
+        SimpleAdapter mAdapter;
+        
+    	ArrayList<HashMap<String,String>> depts_list = new ArrayList<HashMap<String,String>>();
+        setTitle("Artikel");
+        
+    	        // Set up ListView example
+    	        String[] groups = new String[]{
+    	        		"Käse",
+    	        		"Schinken",
+    	        		"Brot",
+    	        		"Eier",
+    	        		"Astra",
+    	        		"Pizza",
+    	        		"Milch"};
+    	        
+    	        Double[] balance = new Double[]{
+    	        		1.95,
+    	        		2.49,
+    	        		1.49,
+    	        		1.45,
+    	        		4.99,
+    	        		1.99,
+    	        		0.59};
+    	        
+    	        double balance_value = 0.0;
+    	        for(Double value : balance){
+    	        	balance_value = balance_value + value;
+    	        }
+    	        
+    	        TextView text = (TextView) findViewById(R.id.text4);
+    	        text.setText(String.valueOf(balance_value) + "€   ");
+    	        
+    	        for(int index = 0; index < groups.length; index++){
+    	        	HashMap<String, String> depts = new HashMap<String, String>();
+    	        	depts.put("group", "   " + groups[index]);
+    	        	depts.put("balance", balance[index].toString() + "€   ");
+    	        	depts_list.add(depts);
+    	        }
+    	        
+    	        mAdapter = new SimpleAdapter(this,
+    	        		depts_list,
+    	        		 R.layout.row_overview,
+                         new String[] {"group", "balance"},
+                         new int[] {R.id.text1,
+                                 R.id.text2});
+    	        
 
-        // Set up ListView example
-        String[] items = new String[]{
-        		"Kaese \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1,95",
-        		"Schinken\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t2,49",
-        		"Brot\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1,49",
-        		"Eier\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1,45",
-        		"Astra\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t4,99",
-        		"Pizza\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1,99",
-        		"Milch\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t0,59"};
-
-        mAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                new ArrayList<String>(Arrays.asList(items)));
-        setListAdapter(mAdapter);
+    	setListAdapter(mAdapter);
 
         ListView listView = getListView();
         // Create a ListView-specific touch listener. ListViews are given special treatment because
@@ -68,9 +105,9 @@ public class ReceiptPostprocessingActivity extends ListActivity {
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
-                                    mAdapter.remove(mAdapter.getItem(position));
+                                    //mAdapter.remove(mAdapter.getItem(position));
                                 }
-                                mAdapter.notifyDataSetChanged();
+                               // mAdapter.notifyDataSetChanged();
                             }
                         });
         listView.setOnTouchListener(touchListener);
