@@ -29,6 +29,7 @@ import android.widget.Toast;
 //import com.timkonieczny.yuomeclickdummy.R;
 
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -40,9 +41,9 @@ public class ReceiptPostprocessingActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
         
-        SimpleAdapter mAdapter;
+        final SimpleAdapter mAdapter;
         
-    	ArrayList<HashMap<String,String>> depts_list = new ArrayList<HashMap<String,String>>();
+    	final ArrayList<HashMap<String,String>> depts_list = new ArrayList<HashMap<String,String>>();
         setTitle("Artikel");
         
     	        // Set up ListView example
@@ -105,9 +106,11 @@ public class ReceiptPostprocessingActivity extends ListActivity {
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
-                                    //mAdapter.remove(mAdapter.getItem(position));
+                                	HashMap<String, String> test = new HashMap<String, String>();
+                                    test = (HashMap<String, String>) mAdapter.getItem(position);
+                                    depts_list.remove(test);
                                 }
-                               // mAdapter.notifyDataSetChanged();
+                               mAdapter.notifyDataSetChanged();
                             }
                         });
         listView.setOnTouchListener(touchListener);
@@ -121,5 +124,9 @@ public class ReceiptPostprocessingActivity extends ListActivity {
         Toast.makeText(this,
                 "Clicked " + getListAdapter().getItem(position).toString(),
                 Toast.LENGTH_SHORT).show();
+    }
+    protected double calculateValue(ArrayList<HashMap<String, Double>> depts_list){
+		return 0;
+    	
     }
 }
