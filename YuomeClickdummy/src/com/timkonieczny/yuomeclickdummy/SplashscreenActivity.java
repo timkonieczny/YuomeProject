@@ -237,6 +237,40 @@ public class SplashscreenActivity extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_my_receipts, container, false);
             getActivity().setTitle("Meine Kassenzettel");
+            
+            ArrayList<HashMap<String, String>> buy_list = new ArrayList<HashMap<String,String>>();
+            SimpleAdapter mAdapter;
+            
+            String[] date = new String[]{
+            		"Einkauf vom 02.12.2013"};
+            
+            String[] place = new String[]{
+    		"Imagiär-Markt, Phantasieallee"};
+            
+            String[] contacts = new String[]{
+    				"mit Erik Harbeck, Nicolas Schwartau, Tim Konieczny"};
+            
+            String[] value = new String[]{
+					"15.95"};
+            
+            for(int index = 0; index < contacts.length; index++){
+            	HashMap<String, String> depts = new HashMap<String, String>();
+            	depts.put("date", "  " + date[index]);
+            	depts.put("place", "   " + place[index]);
+            	depts.put("contacts", "   " + contacts[index]);
+            	depts.put("value", value[index] + "   ");
+            	buy_list.add(depts);
+            }
+            
+            mAdapter = new SimpleAdapter(getActivity(),
+            		buy_list,
+            		 R.layout.fragment_my_receipts_item,
+                     new String[] {"date", "place", "contacts", "value"},
+                     new int[] {R.id.date, R.id.place, R.id.contacts, R.id.value});
+            
+            ListView myList = (ListView) rootView.findViewById(android.R.id.list);
+	        myList.setAdapter(mAdapter);	
+            
             return rootView;
         }
     }
@@ -260,21 +294,20 @@ public class SplashscreenActivity extends Activity {
             
         	        // Set up ListView example
         	        String[] groups = new String[]{
-        	        		"Andreas Helms",
         	        		"Erik Harbeck",
         	        		"Nicolas Schwartau",
         	        		"Tim Konieczny"};
         	        
         	        Double[] balance = new Double[]{
-        	        		4.05,
-        	        		4.54,
-        	        		5.66,
-        	        		5.63,};
+        	        		3.99,
+        	        		3.99,
+        	        		3.99,};
         	        
         	        double balance_value = 0.0;
         	        for(Double value : balance){
         	        	balance_value = balance_value + value;
         	        }
+        	        balance_value = Math.round(balance_value * 100) / 100.;
         	        
         	        TextView text = (TextView) rootView.findViewById(R.id.text4);
         	        text.setText(String.valueOf(balance_value) + "€   ");

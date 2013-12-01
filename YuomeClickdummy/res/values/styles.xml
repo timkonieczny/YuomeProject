@@ -14,7 +14,14 @@
     
     <style name="MyCustomTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/GreenActionBar</item>
+        <item name="android:actionButtonStyle">@style/MyActionButtonStyle</item>
     </style>
+    
+    <style name="MyActionButtonStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+    <item name="android:minWidth">48dip</item>
+    <item name="android:minHeight">48dip</item>
+    <item name="android:padding">0dip</item>
+	</style>	
 
     <style name="GreenActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/green</item>
