@@ -6,22 +6,23 @@
     android:background="#338A30"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <View
+    <!-- <View
             android:id="@+id/view1"
             android:layout_width="wrap_content"
-            android:layout_height="10sp" />
+            android:layout_height="10sp" /> -->
     
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/logo_large" />
+        android:src="@drawable/logo_large"
+        android:layout_marginTop="100px"/>
     
-    <View
+    <!-- <View
             android:id="@+id/view1"
             android:layout_width="wrap_content"
-            android:layout_height="10sp" />
+            android:layout_height="10sp" /> -->
 
     <EditText
         android:id="@+id/username"
@@ -30,8 +31,11 @@
         android:hint="Username"
         android:singleLine="true"
         android:text=""
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" >
+        android:textColor="@color/black"
+        android:textColorHint="#A4A4A4"
+        android:layout_marginTop="100px"
+        android:layout_marginRight="70px"
+        android:layout_marginLeft="70px">
 
     </EditText>
 
@@ -43,47 +47,54 @@
         android:inputType="textPassword"
         android:singleLine="true"
         android:text=""
-        android:textColor="@color/white"
-        android:textColorHint="@color/white">
+        android:textColor="@color/black"
+        android:textColorHint="#A4A4A4"
+        android:layout_marginTop="30px"
+        android:layout_marginRight="70px"
+        android:layout_marginLeft="70px">
 
     </EditText>
     
 
-    <LinearLayout
+    <!-- <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150sp"
+        android:layout_height="fill_parent"
         android:layout_gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical" > -->
 
-          <View
+          <!-- <View
             android:id="@+id/view1"
             android:layout_width="wrap_content"
-            android:layout_height="10sp" />
+            android:layout_height="10sp" /> -->
         <Button
             android:id="@+id/login_button"
             android:layout_width="200sp"
-            android:layout_height="wrap_content"
+            android:layout_height="50sp"
             android:background="@drawable/button_login"
             android:onClick="userLogIn"
             android:text="Login"
+            android:textSize="40px"
             android:layout_gravity="center"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF" 
+            android:layout_marginTop="70px"/>
 
-        <View
+        <!-- <View
             android:id="@+id/view1"
             android:layout_width="wrap_content"
-            android:layout_height="10sp" />
+            android:layout_height="10sp" /> -->
 
         <Button
             android:id="@+id/signup_button"
             android:layout_width="200sp"
-            android:layout_height="wrap_content"
+            android:layout_height="50sp"
            	android:background="@drawable/button_login"
             android:onClick="userSignUp"
             android:text="Registrieren"
+            android:textSize="40px"
             android:layout_gravity="center"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF" 
+            android:layout_marginTop="50px"/>
 
-    </LinearLayout>
+   <!--  </LinearLayout> -->
 
 </LinearLayout>

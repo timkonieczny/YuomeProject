@@ -19,8 +19,7 @@
     <style name="GreenActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/green</item>
     </style>
-
-
+    
     <!-- Application theme. -->
     <style name="AppTheme" parent="MyCustomTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
