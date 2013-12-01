@@ -1,6 +1,7 @@
 package com.timkonieczny.yuomeclickdummy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -100,45 +101,49 @@ public class SplashscreenActivity extends Activity {
         mDrawerLayout.openDrawer(mDrawerList);	//Beim Erstellen der Activity wird der Drawer geöffnet
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.splashscreen, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    /* Called whenever we call invalidateOptionsMenu() */
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-         // The action bar home/up action should open or close the drawer.
-         // ActionBarDrawerToggle will take care of this.
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        // Handle action buttons
-        switch(item.getItemId()) {
-//        case R.id.action_websearch:
-//            // create intent to perform web search for this planet
-//            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-//            intent.putExtra(SearchManager.QUERY, getActionBar().getTitle());
-//            // catch event that there's no activity to handle intent
-//            if (intent.resolveActivity(getPackageManager()) != null) {
-//                startActivity(intent);
-//            } else {
-//                Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
-//            }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.splashscreen, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//    /* Called whenever we call invalidateOptionsMenu() */
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu) {
+//        // If the nav drawer is open, hide action items related to the content view
+//        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+//        //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+//        return super.onPrepareOptionsMenu(menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//         // The action bar home/up action should open or close the drawer.
+//         // ActionBarDrawerToggle will take care of this.
+//        if (mDrawerToggle.onOptionsItemSelected(item)) {
 //            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
+//        }
+//        // Handle action buttons
+//        switch(item.getItemId()) {
+////        case R.id.action_websearch:
+////            // create intent to perform web search for this planet
+////            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+////            intent.putExtra(SearchManager.QUERY, getActionBar().getTitle());
+////            // catch event that there's no activity to handle intent
+////            if (intent.resolveActivity(getPackageManager()) != null) {
+////                startActivity(intent);
+////            } else {
+////                Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
+////            }
+////            return true;
+//        default:
+//            return super.onOptionsItemSelected(item);
+//        }
+//    }
+    
+    @Override
+    public void onBackPressed() {
     }
 
     /* The click listner for ListView in the navigation drawer */
@@ -182,18 +187,7 @@ public class SplashscreenActivity extends Activity {
 	        setTitle(mMainMenuItems[position]);
 	        mDrawerLayout.closeDrawer(mDrawerList);
         }
-        if (position==3){													//WGs bearbeiten
-        	// update the main content by replacing fragments
-	        Fragment fragment = new EditCommunitiesFragment();
-	        FragmentManager fragmentManager = getFragmentManager();
-	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-	
-	        // update selected item and title, then close the drawer
-	        mDrawerList.setItemChecked(position, true);
-	        setTitle(mMainMenuItems[position]);
-	        mDrawerLayout.closeDrawer(mDrawerList);
-        }
-        if (position==4){													//Kontoeinstellungen
+        if (position==3){													//Kontoeinstellungen
         	Fragment fragment = new MyAccountFragment();
 	        FragmentManager fragmentManager = getFragmentManager();
 	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
@@ -339,31 +333,34 @@ public class SplashscreenActivity extends Activity {
 		
     }
     
-    public static class EditCommunitiesFragment extends Fragment {
-
-        public EditCommunitiesFragment() {
-            // Empty constructor required for fragment subclasses
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_edit_communities, container, false);
-            getActivity().setTitle("Freundeskreis bearbeiten");
-            return rootView;
-        }
-    }
-    
     public static class MyAccountFragment extends Fragment {
-
+    	
+    	private ListView settings;
+    	
         public MyAccountFragment() {
             // Empty constructor required for fragment subclasses
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_my_account, container, false);
-            getActivity().setTitle("Mein Konto");
             
+        	View rootView = inflater.inflate(R.layout.fragment_my_account, container, false);
+            getActivity().setTitle("Mein Konto");
+            settings = (ListView)rootView.findViewById(R.id.settings);
+            ArrayAdapter<String> listAdapter ;
+            
+            String[] settingItems = {
+            		"Username ändern",
+            		"Passwort ändern",
+            		"Abmelden",
+            		"Konto löschen"	
+            };
+            ArrayList<String> settingsList = new ArrayList<String>();  
+            settingsList.addAll( Arrays.asList(settingItems) );  
+              
+            // Create ArrayAdapter using the planet list.  
+            listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.settings_list_view_item, settingsList);  
+            settings.setAdapter( listAdapter );
             return rootView;
         }
     }
