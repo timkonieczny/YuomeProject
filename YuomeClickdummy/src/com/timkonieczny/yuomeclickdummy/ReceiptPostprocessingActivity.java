@@ -17,7 +17,11 @@
 package com.timkonieczny.yuomeclickdummy;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -30,16 +34,21 @@ import android.widget.Toast;
 
 
 
+
+
+
+
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class ReceiptPostprocessingActivity extends ListActivity {
     ArrayAdapter<String> mAdapter;
-
+     
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_overview);
+        setContentView(R.layout.activity_articles);
         
         final SimpleAdapter mAdapter;
         
@@ -62,13 +71,14 @@ public class ReceiptPostprocessingActivity extends ListActivity {
     	        		1.49,
     	        		1.45,
     	        		4.99,
-    	        		1.99,
+    	        		2.99,
     	        		0.59};
     	        
     	        double balance_value = 0.0;
     	        for(Double value : balance){
     	        	balance_value = balance_value + value;
     	        }
+    	        balance_value = Math.round(balance_value * 100) / 100.;
     	        
     	        TextView text = (TextView) findViewById(R.id.text4);
     	        text.setText(String.valueOf(balance_value) + "€   ");
@@ -82,7 +92,7 @@ public class ReceiptPostprocessingActivity extends ListActivity {
     	        
     	        mAdapter = new SimpleAdapter(this,
     	        		depts_list,
-    	        		 R.layout.row_overview,
+    	        		 R.layout.row_articles,
                          new String[] {"group", "balance"},
                          new int[] {R.id.text1,
                                  R.id.text2});
@@ -118,13 +128,26 @@ public class ReceiptPostprocessingActivity extends ListActivity {
         // we don't look for swipes.
         listView.setOnScrollListener(touchListener.makeScrollListener());
     }
-
+    
     @Override
-    protected void onListItemClick(ListView listView, View view, int position, long id) {
-        Toast.makeText(this,
-                "Clicked " + getListAdapter().getItem(position).toString(),
-                Toast.LENGTH_SHORT).show();
+    public boolean onCreateOptionsMenu(Menu menu) {
+      MenuInflater inflater = getMenuInflater();
+      inflater.inflate(R.menu.receipt_postprocessing, menu);
+      return true;
     }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.action_addbuy:
+        	Intent intent = new Intent(this, ChoseContactsActivity.class);
+            startActivity(intent);
+          break;
+        
+        default:
+          break;
+        }
+
+        return true;
+      } 
     protected double calculateValue(ArrayList<HashMap<String, Double>> depts_list){
 		return 0;
     	
