@@ -1,27 +1,13 @@
 package com.timkonieczny.yuome;
 
 import android.content.Intent;
-
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.widget.ImageView;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
-import android.content.ContentResolver;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.view.MenuItem;
-//import android.support.v4.app.NavUtils;
-
 
 public class ScanReceiptActivity extends Activity {
 

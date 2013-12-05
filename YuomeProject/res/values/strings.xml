@@ -22,5 +22,19 @@
     <string name="title_activity_scan_receipt">Kassenzettel fotografieren</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_my_receipts">Meine Kassenzettel</string>
+    <string-array name="main_menu">
+        <item>Kassenzettel scannen</item>
+        <item>Meine Übersicht</item>
+        <item>Meine Kassenzettel</item>
+        <item>Mein Konto</item>
+    </string-array>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string-array name="settings_menu">
+        <item>Username ändern</item>
+        <item>Passwort ändern</item>
+        <item>Abmelden</item>
+        <item>Konto löschen</item>
+    </string-array>
 
 </resources>
