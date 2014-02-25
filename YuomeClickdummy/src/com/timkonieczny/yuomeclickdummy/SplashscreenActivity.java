@@ -377,7 +377,7 @@ public class SplashscreenActivity extends Activity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             
-        	View rootView = inflater.inflate(R.layout.fragment_my_account, container, false);
+        	View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
             getActivity().setTitle("Mein Konto");
             settings = (ListView)rootView.findViewById(R.id.settings);
             ArrayAdapter<String> listAdapter ;
