@@ -1,15 +1,28 @@
 package com.timkonieczny.yuomeclickdummy;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.timkonieczny.yuomeclickdummy.R;
 
 import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ListActivity;
@@ -351,7 +364,7 @@ public class SplashscreenActivity extends Activity {
 			}
 			popupMessage.showAsDropDown(arg1);
 			
-		}
+			}
 
 			@Override
 			public void onClick(View v) {
@@ -366,7 +379,7 @@ public class SplashscreenActivity extends Activity {
 		
     }
     
-    public static class MyAccountFragment extends Fragment {
+    public static class MyAccountFragment extends Fragment implements OnItemClickListener {
     	
     	private ListView settings;
     	
@@ -394,7 +407,33 @@ public class SplashscreenActivity extends Activity {
             // Create ArrayAdapter using the planet list.  
             listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.settings_list_view_item, settingsList);  
             settings.setAdapter( listAdapter );
+            settings.setOnItemClickListener(this);
             return rootView;
         }
+
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
+			new AlertDialog.Builder(getActivity())
+			.setTitle("Abmelden")
+			.setMessage("Wirklich abmelden?")
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+			    public void onClick(DialogInterface dialog, int whichButton) {
+			    	URL server;
+					try {
+						server = new URL("http://andibar.dyndns.org:5678/Yuome/log_off.php");
+						URLConnection log_off = server.openConnection();
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+			        Toast.makeText(getActivity(), "Erfolgreich abgemeldet.", Toast.LENGTH_SHORT).show();
+			        Intent intent = new Intent(getActivity(), LoginActivity.class);
+	                startActivity(intent);
+			    }})
+			 .setNegativeButton(android.R.string.no, null).show();
+		
+		}
     }
 }
