@@ -33,7 +33,8 @@ import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 	Button b;
-    EditText user,pass;
+    EditText user;
+	EditText pass;
     TextView tv;
     HttpPost httppost;
     StringBuffer buffer;
@@ -75,17 +76,7 @@ public class LoginActivity extends Activity {
     
     public void userLogIn(){
     	 try{
-             httpclient=new DefaultHttpClient();
-             httppost= new HttpPost("http://andibar.dyndns.org:5678/Yuome/check_for_user.php"); // make sure the url is correct.
-             //add your data
-             nameValuePairs = new ArrayList<NameValuePair>(2);
-             // Always use the same variable name for posting i.e the android side variable name and php side variable name should be similar,
-             nameValuePairs.add(new BasicNameValuePair("username",user.getText().toString().trim()));  // $Edittext_value = $_POST['Edittext_value'];
-             nameValuePairs.add(new BasicNameValuePair("password",pass.getText().toString().trim()));
-             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-             //Execute HTTP Post Request
-             ResponseHandler<String> responseHandler = new BasicResponseHandler();
-             final String response = httpclient.execute(httppost, responseHandler);		//Bundles nutzen, um Login-Information an weitere Activities weiterzureichen
+    		 final String response = PHPConnector.getLoginResponse("http://andibar.dyndns.org:5678/Yuome/check_for_user.php", user.getText().toString().trim(), pass.getText().toString().trim());
              System.out.println("Response : " + response);
              dialog.dismiss();
              if(response.equalsIgnoreCase(user.getText() + " has logged in successfully.")){
@@ -98,13 +89,12 @@ public class LoginActivity extends Activity {
                  Intent intent = new Intent(this, SplashscreenActivity.class);
                  startActivity(intent);
              }
-             else if(response.equalsIgnoreCase("already logged in.")){
+             else if(response.equalsIgnoreCase(user.getText() + " already logged in.")){
                  runOnUiThread(new Runnable() {
                      public void run() {
                          Toast.makeText(LoginActivity.this,response, Toast.LENGTH_SHORT).show();
                      }
                  });
-
                  Intent intent = new Intent(this, SplashscreenActivity.class);
                  startActivity(intent);
              }else{
@@ -114,13 +104,13 @@ public class LoginActivity extends Activity {
          }catch(Exception e){
              dialog.dismiss();
              showNoConnectionAlert(e.getMessage());
-         }
+    	 }
     }
     public void showAlert(){
         LoginActivity.this.runOnUiThread(new Runnable() {
             public void run() {
                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                builder.setTitle("Login Error.");
+                builder.setTitle("Login Error");
                 builder.setMessage("User not found or password incorrect.")
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {

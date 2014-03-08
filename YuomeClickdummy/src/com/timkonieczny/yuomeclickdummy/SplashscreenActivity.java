@@ -1,6 +1,9 @@
 package com.timkonieczny.yuomeclickdummy;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -10,8 +13,11 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -412,28 +418,46 @@ public class SplashscreenActivity extends Activity {
         }
 
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-			new AlertDialog.Builder(getActivity())
-			.setTitle("Abmelden")
-			.setMessage("Wirklich abmelden?")
-			.setIcon(android.R.drawable.ic_dialog_alert)
-			.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-			    public void onClick(DialogInterface dialog, int whichButton) {
-			    	URL server;
-					try {
-						server = new URL("http://andibar.dyndns.org:5678/Yuome/log_off.php");
-						URLConnection log_off = server.openConnection();
-					} catch (MalformedURLException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-			        Toast.makeText(getActivity(), "Erfolgreich abgemeldet.", Toast.LENGTH_SHORT).show();
-			        Intent intent = new Intent(getActivity(), LoginActivity.class);
-	                startActivity(intent);
-			    }})
-			 .setNegativeButton(android.R.string.no, null).show();
-		
+			
+			new Thread(new Runnable(){public void run(){
+				String username = "";
+				try{
+					username = PHPConnector.getResponse("http://andibar.dyndns.org:5678/Yuome/check_for_user.php");
+				}catch(Exception e){
+		            e.getMessage();
+		    	 }
+				showLogoutMessage(username.split(" ")[0]);
+			}}).start();
 		}
-    }
+		public void showLogoutMessage(String user){
+			final String username = user;
+			getActivity().runOnUiThread(new Runnable() {
+	            public void run() {
+					new AlertDialog.Builder(getActivity())
+					.setTitle("Abmelden")
+					.setMessage(username + " wirklich abmelden?")
+					.setIcon(android.R.drawable.ic_dialog_alert)
+					.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+		
+				    public void onClick(DialogInterface dialog, int whichButton) {
+				    	new Thread(new Runnable(){public void run(){
+					    	try {
+								PHPConnector.logOff();
+							} catch (ClientProtocolException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+				    	}}).start();
+					        Toast.makeText(getActivity(), "Erfolgreich abgemeldet.", Toast.LENGTH_SHORT).show();
+					        Intent intent = new Intent(getActivity(), LoginActivity.class);
+				            startActivity(intent);
+				    }})
+				 .setNegativeButton(android.R.string.no, null).show();
+	            }
+			});
+		}
+	}
 }
